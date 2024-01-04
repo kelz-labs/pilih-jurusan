@@ -13,10 +13,10 @@ export default function Home() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    Cookies.remove("username");
+    Cookies.remove("email");
     Cookies.remove("password");
 
-    navigate("/auth/login");
+    navigate("/");
   }
 
   return (
@@ -53,10 +53,10 @@ export default function Home() {
 function HomeRoute({ children }) {
   return (
     <>
-      {(Cookies.get("username") === undefined &&
-        Cookies.get("password") === undefined) ||
-      (DECRYPTED_EMAIL !== USER_EMAIL &&
-        DECRYPTED_PASSWORD !== USER_PASSWORD) ? (
+      {Cookies.get("email") === undefined ||
+      (Cookies.get("password") === undefined &&
+        DECRYPTED_EMAIL === USER_EMAIL &&
+        DECRYPTED_PASSWORD === USER_PASSWORD) ? (
         <Navigate to="/auth/login" />
       ) : (
         children
